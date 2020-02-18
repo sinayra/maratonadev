@@ -30,38 +30,20 @@
     <main>
       <h2>Últimos <span>doadores</span></h2>
       <section class="donors">
-        <div>
-          <div class="donor">
-            <div class="blood">
-              O+
+
+        {% for donor in donors %}
+
+          <div>
+            <div class="donor">
+              <div class="blood">
+                {{donor.blood}}
+              </div>
+              <p>{{donor.name}}</p>
             </div>
-            <p>Diego Fernandes</p>
           </div>
-        </div>
-        <div>
-          <div class="donor">
-            <div class="blood">
-              O+
-            </div>
-            <p>Diego Fernandes</p>
-          </div>
-        </div>
-        <div>
-          <div class="donor">
-            <div class="blood">
-              O+
-            </div>
-            <p>Diego Fernandes</p>
-          </div>
-        </div>
-        <div>
-          <div class="donor">
-            <div class="blood">
-              O+
-            </div>
-            <p>Diego Fernandes</p>
-          </div>
-        </div>
+
+        {% endfor %}
+        
       </section>
     </main>
 
@@ -69,6 +51,6 @@
       Com ❤ Um app
     </footer>
 
-    <script src="script.js"></script>
+    <script src="/script.js"></script>
   </body>
 </html>

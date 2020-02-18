@@ -12,6 +12,26 @@ nunjucks.configure("./", {
     express: server
 });
 
+
+const donors = [
+    {
+        name: "Diego Fernandes",
+        blood: "AB+"
+    },
+    {
+        name: "Diego Fernandes",
+        blood: "AB+"
+    },
+    {
+        name: "Diego Fernandes",
+        blood: "AB+"
+    },
+    {
+        name: "Diego Fernandes",
+        blood: "AB+"
+    }
+]
+
 server.get("/", function(req, res) {
-    return res.render("index.html");
+    return res.render("index.html", { donors });
 });
