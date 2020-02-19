@@ -6,15 +6,22 @@ server.use(express.static('public'));
 
 server.use(express.urlencoded({ extended: true }));
 
+const Pool = require('pg').Pool;
+const db = new Pool({
+    user: 'postgres',
+    passowrd: 'root',
+    host: 'localhost',
+    port: 5432,
+    database: 'donation'
+})
+
 nunjucks.configure("./", {
     express: server,
     noCache: true
 });
 
-
-const donors = []
-
 server.get("/", function(req, res) {
+    const donors = [];
     return res.render("index.html", { donors });
 });
 
@@ -23,9 +30,17 @@ server.post("/", function(req, res) {
     const email = req.body.email;
     const blood = req.body.blood;
 
-    donors.push({
-        name: name,
-        blood: blood
+    if(name == "" || email == "" || blood == ""){
+        return res.send("Todos os campos são obrigatórios");
+    }
+
+    const query = `INSERT INTO donors("name", "email", "blood") 
+                VALUES ($1, $2, $3)`;
+    const values = [name, email, blood];
+    db.query(query, values, function(err){
+        if(err){
+            return res.send("erro no banco de dados");
+        }
     });
 
     return res.redirect("/");
